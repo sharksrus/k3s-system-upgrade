@@ -14,7 +14,7 @@ Apply this label only to the primary node.
 kubectl label node pri1 node-role.kubernetes.io/master=true
 ```
 
-Apply `node` labels to all nodes (unless primary is not running workloads)
+Apply the following label to all nodes (exclude primary if it is not running workloads)
 
 ```sh
 kubectl label node pri1.bar.punko.ps worker1 worker2 worker3 worker4 worker5 k3s-upgrade=true
