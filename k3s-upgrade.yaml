@@ -9,14 +9,14 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-    - key: node-role.kubernetes.io/master
-      operator: In
-      values:
-      - "true"
+      - key: node-role.kubernetes.io/master
+        operator: In
+        values:
+          - "true"
   serviceAccountName: system-upgrade
   upgrade:
-    image: rancher/k3s-upgrade:v1.29.3-k3s1-arm64
-  channel: https://update.k3s.io/v1-release/channels/stable
+    image: rancher/k3s-upgrade:v1.31.0-k3s1-arm64
+  channel: https://update.k3s.io/v1-release/channels/latest
 ---
 # Agent plan
 apiVersion: upgrade.cattle.io/v1
@@ -29,14 +29,14 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-    - key: node-role.kubernetes.io/master
-      operator: DoesNotExist
+      - key: node-role.kubernetes.io/master
+        operator: DoesNotExist
   prepare:
     args:
-    - prepare
-    - server-plan
-    image: rancher/k3s-upgrade:v1.29.3-k3s1-arm64
+      - prepare
+      - server-plan
+    image: rancher/k3s-upgrade:v1.31.0-k3s1-arm64
   serviceAccountName: system-upgrade
   upgrade:
     image: rancher/k3s-upgrade
-  channel: https://update.k3s.io/v1-release/channels/stable
+  channel: https://update.k3s.io/v1-release/channels/latest
