@@ -33,7 +33,7 @@ data:
   SYSTEM_UPGRADE_JOB_ACTIVE_DEADLINE_SECONDS: "900"
   SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: "99"
   SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: "Always"
-  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: "rancher/kubectl:v1.31.0-arm64"
+  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: "rancher/kubectl:v1.32.3-arm64"
   SYSTEM_UPGRADE_JOB_PRIVILEGED: "true"
   SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: "900"
   SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: "15m"
@@ -72,7 +72,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: system-upgrade-controller
-          image: rancher/system-upgrade-controller:v0.13.4-arm64
+          image: rancher/system-upgrade-controller:v0.15.2
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
