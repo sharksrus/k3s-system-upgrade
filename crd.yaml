@@ -33,7 +33,7 @@ data:
   SYSTEM_UPGRADE_JOB_ACTIVE_DEADLINE_SECONDS: "900"
   SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: "99"
   SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: "Always"
-  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: "rancher/kubectl:v1.36.0-arm64"
+  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: "rancher/kubectl:v1.36.2-arm64"
   SYSTEM_UPGRADE_JOB_PRIVILEGED: "true"
   SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: "900"
   SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: "15m"
@@ -58,7 +58,7 @@ spec:
             nodeSelectorTerms:
               - matchExpressions:
                   - {
-                      key: "node-role.kubernetes.io/master",
+                      key: "node-role.kubernetes.io/control-plane",
                       operator: In,
                       values: ["true"],
                     }
@@ -67,12 +67,15 @@ spec:
         - key: CriticalAddonsOnly
           operator: Equal
           value: "true"
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
           effect: "NoSchedule"
       containers:
         - name: system-upgrade-controller
-          image: rancher/system-upgrade-controller:v0.19.2
+          image: rancher/system-upgrade-controller:v0.20.2
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

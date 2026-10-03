@@ -9,7 +9,7 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-      - key: node-role.kubernetes.io/master
+      - key: node-role.kubernetes.io/control-plane
         operator: In
         values:
           - "true"
@@ -18,7 +18,7 @@ spec:
     - {key: kubernetes.io/arch, effect: NoSchedule, operator: Equal, value: arm64}
     - {key: CriticalAddonsOnly, effect: NoSchedule, operator: Equal, value: "true"}
   upgrade:
-    image: rancher/k3s-upgrade:v1.36.1-k3s1
+    image: rancher/k3s-upgrade:v1.37.1-k3s1
   channel: https://update.k3s.io/v1-release/channels/latest
 ---
 # Agent plan
@@ -32,14 +32,14 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-      - key: node-role.kubernetes.io/master
+      - key: node-role.kubernetes.io/control-plane
         operator: DoesNotExist
   prepare:
     args:
       - prepare
       - server-plan
-    image: rancher/k3s-upgrade:v1.36.1-k3s1
+    image: rancher/k3s-upgrade:v1.37.1-k3s1
   serviceAccountName: system-upgrade
   upgrade:
-    image: rancher/k3s-upgrade:v1.36.1-k3s1
+    image: rancher/k3s-upgrade:v1.37.1-k3s1
   channel: https://update.k3s.io/v1-release/channels/latest

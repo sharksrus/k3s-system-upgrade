@@ -9,10 +9,7 @@ This is using Rancher's `System Upgrade Controller`. I simply folled the doc abo
 
 ## Instructions
 
-Apply this label only to the primary node.
-``` sh
-kubectl label node pri1 node-role.kubernetes.io/master=true
-```
+k3s already labels the server node `node-role.kubernetes.io/control-plane=true` (and the deprecated `master` label). `kubectl get nodes` shows that as `control-plane,master`. `kubectl label` prints `not labeled` when that value is already set, so there is nothing to apply.
 
 Apply the following label to all nodes (exclude primary if it is not running workloads)
 
